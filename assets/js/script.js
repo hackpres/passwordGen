@@ -8,7 +8,10 @@ function generatePassword() {
   var confirmUpper = confirm("Would you like to include upper case letters?");
   var confirmNumber = confirm("Would you like to include number characters?");
   var confirmSpecial = confirm("Would you like to include special characters?");
-  
+
+  while (isNaN(promptLength) || promptLength < 8 || promptLength > 128) {
+    promptLength = prompt("Please type a password length between 8 - 128.");
+  }
 }
 // Write password to the #password input
 function writePassword() {
