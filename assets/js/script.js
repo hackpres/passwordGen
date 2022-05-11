@@ -18,7 +18,17 @@ function generatePassword() {
   const numberChars = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
   const specialChars = ["`", "~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "[", "{", "]", "}", "'", "|", ";", ":", ",", "<", ".", ">", "/", "?"];
 
-  
+  var possibleChars = []
+
+  if (confirmLower) possibleChars.push(lowerChars);
+    console.log(possibleChars);
+  if (confirmUpper) possibleChars.push(upperChars);
+    console.log(possibleChars);
+  if (confirmNumber) possibleChars.push(numberChars);
+    console.log(possibleChars);
+  if (confirmSpecial) possibleChars.push(specialChars);
+    console.log(possibleChars);
+
 }
 // Write password to the #password input
 function writePassword() {
