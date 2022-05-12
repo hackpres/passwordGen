@@ -11,6 +11,11 @@ function generatePassword() {
   var confirmNumber = confirm("Would you like to include number characters?");
   var confirmSpecial = confirm("Would you like to include special characters?");
 
+  // checks the prompt length to make sure it is a number between 8 & 128
+  while (isNaN(promptLength) || promptLength < 8 || promptLength > 128) {
+    promptLength = prompt("Please type a password length between 8 - 128.");
+  }
+
   // arrays of the various character options
   const lowerChars = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",];
   const upperChars = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",];
@@ -31,12 +36,7 @@ function generatePassword() {
     console.log(possibleChars);
   // this leaves us with an array of arrays. If all options were confirmed than it would be; possibleChars = [[lowerChars], [upperChars], [numberChars], [specialChars]];
 
-  // this checks the prompt length to make sure it is a number between 8 & 128
-  while (isNaN(promptLength) || promptLength < 8 || promptLength > 128) {
-    promptLength = prompt("Please type a password length between 8 - 128.");
-  }
-
-// declares a variable called passwordChars with a value of an empty string
+  // declares a variable called passwordChars with a value of an empty string
   let passwordChars = "";
 
   // opens a for loop that increments i from 0 to the user input value of promptLength

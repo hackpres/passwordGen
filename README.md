@@ -1,21 +1,14 @@
-# 03 JavaScript: Password Generator
+# Password Generator
 
-## Your Task
+## Description
 
-This week's Challenge requires you to modify starter code to create an application that enables employees to generate random passwords based on criteria that they’ve selected. This app will run in the browser and will feature dynamically updated HTML and CSS powered by JavaScript code that you write. It will have a clean and polished, responsive user interface that adapts to multiple screen sizes.
+This project was to take some starter code, and create a fully functional password generator.
 
-The password can include special characters. If you’re unfamiliar with these, see this [list of password special characters](https://www.owasp.org/index.php/Password_special_characters) from the OWASP Foundation.
+This proved to certainly be a challenge in logic. However, taking the time to break down each step into manageable parts helped me accomplish the task, and better understand js while I was at it!
 
-## User Story
+I also realized that there are multiple ways to accomplish the same task. I actually built my first password generator using ASCii Table codes (https://hackpres.github.io/passwordGenASCii/), but I believe that this method will actually generate a more random password, as it is randomly selecting a character type array before randomly selecting a character within that array.
 
-```
-AS AN employee with access to sensitive data
-I WANT to randomly generate a password that meets certain criteria
-SO THAT I can create a strong password that provides greater security
-```
-
-## Acceptance Criteria
-
+The acceptance criteria was as follows:
 ```
 GIVEN I need a new, secure password
 WHEN I click the button to generate a password
@@ -34,67 +27,65 @@ WHEN the password is generated
 THEN the password is either displayed in an alert or written to the page
 ```
 
-## Mock-Up
+## Git Links
 
-The following image shows the web application's appearance and functionality:
+github repo link:
+https://github.com/hackpres/passwordGen
 
-![The Password Generator application displays a red button to "Generate Password".](./Assets/03-javascript-homework-demo.png)
+github deployed app link:
+https://hackpres.github.io/passwordGen/
 
-## Grading Requirements
+## Screenshots of deployed app
+![passwordGen](./assets/images/passwordGen.png?raw=true "Password Generator")
+![passwordExample](./assets/images/passwordExample.png?raw=true "Password Example")
 
-> **Note**: If a Challenge assignment submission is marked as “0”, it is considered incomplete and will not count towards your graduation requirements. Examples of incomplete submissions include the following:
->
-> * A repository that has no code
->
-> * A repository that includes a unique name but nothing else
->
-> * A repository that includes only a README file but nothing else
->
-> * A repository that only includes starter code
+User prompt box
+![userPrompt](./assets/images/promptLength.png?raw=true "Length Prompt")
 
-This Challenge is graded based on the following criteria: 
+User confirm boxes
+![lowercaseConfirm](./assets/images/lowercase.png?raw=true "Confirm Lowercase?")
+![uppercaseConfirm](./assets/images/uppercase.png?raw=true "Confirm Uppercase?")
+![numberConfirm](./assets/images/numbers.png?raw=true "Confirm Numbers?")
+![specialConfirm](./assets/images/specials.png?raw=true "Confirm Special Characters?")
+![validateLength](./assets/images/whileLength.png?raw=true "Validate Length is a number 8-128")
 
-### Technical Acceptance Criteria: 40%
+## Usage and Features
 
-* Satisfies all of the preceding acceptance criteria.
+The starter code was missing the generatePassword() function, so I started by creating that.
 
-### Deployment: 32%
+I then added a prompt for character length and confirms for each character type (lowercase, uppercase, number, special).
+Then I started a while loop that loop to confirm that the user gave us a number between 8 and 128 in our window prompt.
+![promptsConfirms](./assets/images/promptsConfirms.png?raw=true "Prompt and Confirms")
 
-* Application deployed at live URL.
+The next step was to create arrays of each character type.
+![charArrays](./assets/images/charArrays.png?raw=true "Character Arrays")
 
-* Application loads with no errors.
+After creating the Character arrays I created a new variable called possibleChars and set its value to an empty array.
 
-* Application GitHub URL submitted.
+Then using if statements, I push the character arrays that the user confirmed into the possibleChars array. This creates an array of arrays (a maximum of 4 nested arrays, as there are only 4 character types)
+![possibleChars](./assets/images/possibleChars.png?raw=true "Possible Character Array")
 
-* GitHub repository that contains application code.
+Now were on to the good part. The for loop that does our generating.
 
-### Application Quality: 15%
+I  first created a new variable called passwordChars and set its value to an empty string.
 
-* Application user experience is intuitive and easy to navigate.
+Then I opened a for loop giving it three expressions; i = 0, i < promptLength, and i + 1.
+This will tell the for loop to start with i at 0 and run the statement until i is equal to promptLength incrementing i by 1 evertime the statement runs.
 
-* Application user interface style is clean and polished.
+For the for statement, I created a new variable called rand1 and set its value to the function Math.floor(Math.random() * possibleChars.length) This will change the value of rand1 everytime the loop runs giving us a random number between 0 and the length of possibleChars (which again is dictated by the user responses to our confirms).
 
-* Application resembles the mock-up functionality provided in the Challenge instructions.
+Then I add to the string of passwordChars, possibleChars[rand1][Math.floor(Math.random() * possibleChars[rand1.length])] This bit of code will take the number generated for rand1 and use it to set the index possition of possibleChars. Then using Math.floor(Math.random() * possibleChars[rand1].length) it will return a random number from index position 0 to the length of the array at possibleChars[rand1].
 
-### Repository Quality: 13%
+Finally, once the for loop has incremented i to equal promptlength it will return the variable passwordChars (which now has a value of a string of our randomly generated password).
+![generatePasswordMath](./assets/images/generatePasswordMath.png?raw=true "Password Generation Math")
 
-* Repository has a unique name.
+The final bit of code here is part of the starter code, I only added comments showing what is happening.
 
-* Repository follows best practices for file structure and naming conventions.
+A function writePassword() is created this function is envoked when the generateBtn is clicked.
 
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
+The function creates a variable called password, and sets its value equal to the function generatePassword().
 
-* Repository contains multiple descriptive commit messages.
+Then another variable is created called passwordText and its value is set to the document location with an id of "password" (which is the text area on the div with a class of "card-body").
 
-* Repository contains quality readme file with description, screenshot, and link to deployed application.
-
-## Review
-
-You are required to submit the following for review:
-
-* The URL of the deployed application.
-
-* The URL of the GitHub repository, with a unique name and a readme describing the project.
-
-- - -
-© 2022 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
+finally .value is an input text value property so passwordText.value = password; is saying input the value of password into passwordText. This will write the password into the text area on the div with a class of "card-body".
+![writePassword](./assets/images/writePassword.png?raw=true "Write Password Function")
